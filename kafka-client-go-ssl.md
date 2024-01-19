@@ -10,7 +10,7 @@ export PASSWORD=XXXXXX
 keytool -exportcert -alias localhost \
     -keystore kafka.server.keystore.jks \
     -rfc \
-    -file cert.pem \
+    -file domain.crt \
     -storepass $PASSWORD
 
 # Generate client key
@@ -25,7 +25,7 @@ keytool -importkeystore \
 openssl pkcs12 -in ck.p12 \
     -nodes \
     -nocerts \
-    -out key.pem \
+    -out domain.key \
     -passin pass:$PASSWORD
 
 # Generate RootCA
@@ -33,7 +33,7 @@ keytool -exportcert \
     -alias localhost \
     -keystore kafka.server.keystore.jks \
     -rfc \
-    -file RootCA.pem \
+    -file ca-cert \
     -storepass $PASSWORD
 ```
 
