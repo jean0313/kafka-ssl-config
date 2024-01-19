@@ -2,19 +2,18 @@
 
 ## Prepare key/cert
 
-#### 1. Generate client cert
+### Option 1. create key/cert from keystore
 ```shell
 export PASSWORD=XXXXXX
 
+# Generate client cert
 keytool -exportcert -alias localhost \
     -keystore kafka.server.keystore.jks \
     -rfc \
     -file cert.pem \
     -storepass $PASSWORD
-```
 
-#### 2. Generate client key
-```shell
+# Generate client key
 keytool -importkeystore \
     -srckeystore kafka.server.keystore.jks \
     -srcalias localhost \
@@ -28,10 +27,8 @@ openssl pkcs12 -in ck.p12 \
     -nocerts \
     -out key.pem \
     -passin pass:$PASSWORD
-```
 
-#### 3. Generate RootCA
-```shell
+# Generate RootCA
 keytool -exportcert \
     -alias localhost \
     -keystore kafka.server.keystore.jks \
@@ -39,6 +36,21 @@ keytool -exportcert \
     -file RootCA.pem \
     -storepass $PASSWORD
 ```
+
+### Option 2. 
+```shell
+
+# Create new key, csr
+openssl req \
+       -newkey rsa:2048 -nodes -keyout domain.key \
+       -out domain.csr \
+       -subj "/C=CN/ST=CN/L=CN/O=CN/CN=localhost" \
+       -passin pass:$PASSWORD -passout pass:$PASSWORD
+
+# Sign csr with ca
+openssl x509 -req -in domain.csr -CA ca-cert -CAkey ca-key -CAcreateserial -out domain.crt -passin pass:$PASSWORD
+```
+
 
 ## Test
 ```go
