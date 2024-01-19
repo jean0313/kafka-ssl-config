@@ -37,7 +37,7 @@ keytool -exportcert \
     -storepass $PASSWORD
 ```
 
-### Option 2. 
+### Option 2. Create key/cert from scratch
 ```shell
 
 # Create new key, csr
