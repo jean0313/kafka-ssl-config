@@ -32,7 +32,7 @@ openssl pkcs12 -in ck.p12 \
 
 #### 3. Generate RootCA
 ```shell
-keytool -exportcert 
+keytool -exportcert \
     -alias localhost \
     -keystore kafka.server.keystore.jks \
     -rfc \
