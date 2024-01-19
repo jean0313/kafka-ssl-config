@@ -62,7 +62,7 @@ openssl x509 -req \
     -passin pass:$PASSWORD
 ```
 
-#### 6.import ca-cert into keystore
+#### 6.Import ca-cert into keystore
 ```shell
 keytool -keystore kafka.server.keystore.jks \
     -alias CARoot \
@@ -73,7 +73,7 @@ keytool -keystore kafka.server.keystore.jks \
     -noprompt
 ```
 
-#### 7.import ssl certificate into keystore
+#### 7.Import ssl certificate into keystore
 ```shell
 keytool -keystore kafka.server.keystore.jks \
     -alias localhost \
@@ -85,7 +85,7 @@ keytool -keystore kafka.server.keystore.jks \
 ```
 
 
-#### 8. Keystore for client
+#### 8.Keystore for client
 ```shell
 keytool -keystore kafka.client.keystore.jks \
     -alias localhost \
@@ -97,7 +97,7 @@ keytool -keystore kafka.client.keystore.jks \
     -keypass $PASSWORD
 ```
 
-#### 9.CSR
+#### 9.Client CSR
 ```shell
 keytool -keystore kafka.client.keystore.jks \
     -alias localhost \
@@ -108,7 +108,7 @@ keytool -keystore kafka.client.keystore.jks \
     -noprompt
 ```
 
-#### 10.client SSL certificate
+#### 10.Client SSL certificate
 ```shell
 openssl x509 -req \
     -CA ca-cert \
@@ -120,7 +120,7 @@ openssl x509 -req \
     -passin pass:$PASSWORD
 ```
 
-#### 11.import ca-cert into client keystore
+#### 11.Import ca-cert into client keystore
 ```shell
 keytool -keystore kafka.client.keystore.jks \
     -alias CARoot \
@@ -131,7 +131,7 @@ keytool -keystore kafka.client.keystore.jks \
     -noprompt
 ```
 
-#### 12.import ssl certificate into client keystore
+#### 12.Import ssl certificate into client keystore
 ```shell
 keytool -keystore kafka.client.keystore.jks \
     -alias localhost \
