@@ -2,7 +2,7 @@
 
 ## Prepare key/cert
 
-### Option 1. create key/cert from keystore
+### Option 1. Create key/cert from keystore
 ```shell
 export PASSWORD=XXXXXX
 
@@ -67,9 +67,9 @@ import (
 
 var (
 	broker = "127.0.0.1:9093"
-	cert   = "../ssl/cert.pem"
-	key    = "../ssl/key.pem"
-	rootCA = "../ssl/RootCA.pem"
+	cert   = "../ssl/domain.crt"
+	key    = "../ssl/domain.key"
+	rootCA = "../ssl/ca-cert"
 )
 
 func main() {
