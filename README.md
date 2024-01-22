@@ -13,12 +13,12 @@ openssl req \
     -days 365 \
     -passin pass:$PASSWORD \
     -passout pass:$PASSWORD \
-    -subj "/C=CN/ST=CN/L=CN/O=CN/CN=localhost"
+    -subj "/C=CN/ST=CN/L=CN/O=CN/CN=RootCA"
 ```
 
 #### 2.Truststore
 ```shell
-keytool -keystore truststore.jks \
+keytool -keystore kafka.server.truststore.jks \
     -alias CARoot \
     -import \
     -file ca-cert \
@@ -84,8 +84,18 @@ keytool -keystore kafka.server.keystore.jks \
     -noprompt
 ```
 
+#### 8.Truststore for client
+```shell
+keytool -keystore kafka.client.truststore.jks \
+    -alias CARoot \
+    -import \
+    -file ca-cert \
+    -storepass "$PASSWORD" \
+    -keypass "$PASSWORD" \
+    -noprompt
+```
 
-#### 8.Keystore for client
+#### 9.Keystore for client
 ```shell
 keytool -keystore kafka.client.keystore.jks \
     -alias localhost \
@@ -97,7 +107,7 @@ keytool -keystore kafka.client.keystore.jks \
     -keypass $PASSWORD
 ```
 
-#### 9.Client CSR
+#### 10.Client CSR
 ```shell
 keytool -keystore kafka.client.keystore.jks \
     -alias localhost \
@@ -108,7 +118,7 @@ keytool -keystore kafka.client.keystore.jks \
     -noprompt
 ```
 
-#### 10.Client SSL certificate
+#### 11.Client SSL certificate
 ```shell
 openssl x509 -req \
     -CA ca-cert \
@@ -120,7 +130,7 @@ openssl x509 -req \
     -passin pass:$PASSWORD
 ```
 
-#### 11.Import ca-cert into client keystore
+#### 12.Import ca-cert into client keystore
 ```shell
 keytool -keystore kafka.client.keystore.jks \
     -alias CARoot \
@@ -131,7 +141,7 @@ keytool -keystore kafka.client.keystore.jks \
     -noprompt
 ```
 
-#### 12.Import ssl certificate into client keystore
+#### 13.Import ssl certificate into client keystore
 ```shell
 keytool -keystore kafka.client.keystore.jks \
     -alias localhost \
@@ -152,9 +162,9 @@ secureClientPort=3183
 secureClientPortAddress=127.0.0.1
 serverCnxnFactory=org.apache.zookeeper.server.NettyServerCnxnFactory
 
-ssl.trustStore.location=/ssl/kafka.server.truststore.jks
+ssl.trustStore.location=/ssl/kafka.client.truststore.jks
 ssl.trustStore.password=changeit
-ssl.keyStore.location=/ssl/kafka.server.keystore.jks
+ssl.keyStore.location=/ssl/kafka.client.keystore.jks
 ssl.keyStore.password=changeit
 ssl.endpoint.identification.algorithm=
 ```
