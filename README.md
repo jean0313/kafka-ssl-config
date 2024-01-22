@@ -34,7 +34,7 @@ keytool -keystore kafka.server.keystore.jks \
     -validity 365 \
     -genkey \
     -keyalg RSA \
-    -dname "CN=localhost, OU=CN, O=CN, L=CN, S=CN, C=CN" \
+    -dname "CN=127.0.0.1, OU=CN, O=CN, L=CN, S=CN, C=CN" \
     -storepass $PASSWORD \
     -keypass $PASSWORD
 ```
@@ -102,7 +102,7 @@ keytool -keystore kafka.client.keystore.jks \
     -validity 365 \
     -genkey \
     -keyalg RSA \
-    -dname "CN=localhost, OU=CN, O=CN, L=CN, S=CN, C=CN" \
+    -dname "CN=127.0.0.1, OU=CN, O=CN, L=CN, S=CN, C=CN" \
     -storepass $PASSWORD \
     -keypass $PASSWORD
 ```
